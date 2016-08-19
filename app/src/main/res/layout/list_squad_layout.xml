@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout_Shooter"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/list_squad_Fill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3F51B5" />
+
+    <TextView
+        android:id="@+id/shooter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/list_squad_Fill"
+        android:paddingTop="5dp"
+        android:text="Shooter ?"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/shooter_Placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shooter"
+        android:text="Shooter ? Placeholder Name"
+        android:textSize="20dp" />
+
+    <LinearLayout
+        android:id="@+id/checkboxHolder_Shooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shooter_Placeholder"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/checkboxHolder_FirstTarget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/first_Target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Target"
+                android:textSize="13dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_FirstTarget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.2"
+                android:scaleY="1.2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/checkboxHolder_SecondTarget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/second_Target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Second Target"
+                android:textSize="13dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_SecondTarget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.2"
+                android:scaleY="1.2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/checkboxHolder_ThirdTarget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/third_Target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Third Target"
+                android:textSize="13dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_ThirdTarget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.2"
+                android:scaleY="1.2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/checkboxHolder_ForthTarget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/forth_Target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forth Target"
+                android:textSize="13dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_ForthTarget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.2"
+                android:scaleY="1.2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/checkboxHolder_FifthTarget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fifth_Target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fifth Target"
+                android:textSize="13dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_FifthTarget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.2"
+                android:scaleY="1.2" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

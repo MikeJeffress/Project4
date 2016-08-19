@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ShooterInfoActivity">
+
+    <TextView
+        android:id="@+id/textView_shooterInfo"
+        android:text="Maybe...General Info About Shooter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView_shooterInfo_ShooterName"
+        android:text="Shooter Name"
+        android:textSize="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_shooterInfo"/>
+
+    <TextView
+        android:id="@+id/textView_shooterInfo_AverageScore"
+        android:text="Shooter Average Score"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_shooterInfo_ShooterName"/>
+
+    <TextView
+        android:id="@+id/activity_shooter_info_Fill_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3F51B5"
+        android:layout_below="@id/textView_shooterInfo_AverageScore"/>
+
+    <TextView
+        android:id="@+id/textView_shooterInfo_RecentRound"
+        android:text="Recent Round Scorecard"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_shooter_info_Fill_1"/>
+
+    <TextView
+        android:id="@+id/activity_shooter_info_Fill_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3F51B5"
+        android:layout_below="@id/textView_shooterInfo_RecentRound"/>
+
+    <ListView
+        android:id="@+id/listView_shooterInfo_RecentScoreCard"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_below="@+id/activity_shooter_info_Fill_2"></ListView>
+
+    <TextView
+        android:id="@+id/activity_shooter_info_Fill_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3F51B5"
+        android:layout_below="@id/listView_shooterInfo_RecentScoreCard"/>
+
+    <ListView
+        android:id="@+id/listView_shooterInfo_RecentScores"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_below="@id/activity_shooter_info_Fill_3">
+    </ListView>
+
+</RelativeLayout>

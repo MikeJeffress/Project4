@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Project 4</string>
+    <string-array name="names">
+        <item>mike</item>
+        <item>joe</item>
+        <item>slim</item>
+        <item>jamey</item>
+        <item>jean</item>
+    </string-array>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Trap Station %1$d</string>
+</resources>
