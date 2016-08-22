@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.michaeljeffress.project4.Data.ShooterData;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -22,22 +21,27 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class ShooterFragment extends Fragment {
     private String TAG = "Scoring App";
+    private String squadKey;
 
     private static final String ARG_STATION_NUMBER = "station_number";
-    private FirebaseListAdapter messageAdapter;
+    private static final String ARG_SQUAD_MEMBER = "squad_member";
+    private FirebaseListAdapter infoAdapter;
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference chatRef = firebaseDatabase.getReference("chat-room");
+    DatabaseReference scoresRef = firebaseDatabase.getReference("scores");
 
 
     public ShooterFragment() {
     }
 
+    public void setSquadKey(String squadKey) {
+        this.squadKey = squadKey;
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        messageAdapter.cleanup(); //need to make global?
+        infoAdapter.cleanup();
     }
 
     public static ShooterFragment newInstance(int stationNumber) {
@@ -52,24 +56,26 @@ public class ShooterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_second, container, false);
         TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_STATION_NUMBER)));
+        textView.setText(getString(R.string.round_format, getArguments().getInt(ARG_STATION_NUMBER)));
         ListView listView = (ListView) rootView.findViewById(R.id.fragment_listView);
+         firebaseDatabase = FirebaseDatabase.getInstance();
+         scoresRef = firebaseDatabase.getReference("scores");
 
-        messageAdapter = new FirebaseListAdapter<ShooterData>(getActivity(), ShooterData.class, android.R.layout.simple_expandable_list_item_1, chatRef){
+        infoAdapter = new FirebaseListAdapter<String>(getActivity(), String.class, R.layout.list_squad_layout, scoresRef.child(squadKey).child(("squadList"))){
             @Override
-            protected void populateView(View v, ShooterData model, int position) {
-                ((TextView) v).setText(model.getShooter());
+            protected void populateView(View v, String model, int position) {
+                TextView textView1 = (TextView) v.findViewById(R.id.shooter_placeholder);
+               textView1.setText(model);
             }
         };
         squadUpdates();
-
-        listView.setAdapter(messageAdapter);
+        listView.setAdapter(infoAdapter);
         return rootView;
     }
 
 
     private void squadUpdates() {
-        chatRef.addChildEventListener(new ChildEventListener() {
+        scoresRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.i(TAG, "onChildAdded: ");
