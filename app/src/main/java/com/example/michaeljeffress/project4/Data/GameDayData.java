@@ -30,7 +30,7 @@ public class GameDayData {
         this.dateOfScoreCard = dateOfScoreCard;
     }
 
-    public void createShoot(PlayerInfo1 p1, PlayerInfo1 p2, PlayerInfo1 p3, PlayerInfo1 p4, PlayerInfo1 p5) {
+    public void createShoot(PlayerInfo p1, PlayerInfo p2, PlayerInfo p3, PlayerInfo p4, PlayerInfo p5) {
         Game g = new Game(p1,p2,p3,p4,p5);
         shoots.add(g);
     }

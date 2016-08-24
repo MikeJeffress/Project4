@@ -5,10 +5,10 @@ import java.util.ArrayList;
 /**
  * Created by michaeljeffress on 8/22/16.
  */
-public class Life6 {
+public class Life {
     private ArrayList<GameDayData> gameDayData;
 
-    public Life6() {
+    public Life() {
         gameDayData = new ArrayList<>();
     }
 

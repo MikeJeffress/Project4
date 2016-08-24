@@ -4,60 +4,60 @@ package com.example.michaeljeffress.project4.Data;
  * Created by michaeljeffress on 8/22/16.
  */
 public class Game {
-    private PlayerData3 shooterOne;
-    private PlayerData3 shooterTwo;
-    private PlayerData3 shooterThree;
-    private PlayerData3 shooterFour;
-    private PlayerData3 shooterFive;
+    private PlayerData shooter1;
+    private PlayerData shooter2;
+    private PlayerData shooter3;
+    private PlayerData shooter4;
+    private PlayerData shooter5;
 
     public Game() {
     }
 
-    public Game(PlayerInfo1 p1, PlayerInfo1 p2, PlayerInfo1 p3, PlayerInfo1 p4, PlayerInfo1 p5) {
-        shooterOne = new PlayerData3(p1);
-        shooterTwo = new PlayerData3(p2);
-        shooterThree = new PlayerData3(p3);
-        shooterFour = new PlayerData3(p4);
-        shooterFive = new PlayerData3(p5);
+    public Game(PlayerInfo p1, PlayerInfo p2, PlayerInfo p3, PlayerInfo p4, PlayerInfo p5) {
+        shooter1 = new PlayerData(p1);
+        shooter2 = new PlayerData(p2);
+        shooter3 = new PlayerData(p3);
+        shooter4 = new PlayerData(p4);
+        shooter5 = new PlayerData(p5);
     }
 
-    public PlayerData3 getShooterOne() {
-        return shooterOne;
+    public PlayerData getShooter1() {
+        return shooter1;
     }
 
-    public void setShooterOne(PlayerData3 shooterOne) {
-        this.shooterOne = shooterOne;
+    public void setShooter1(PlayerData shooter1) {
+        this.shooter1 = shooter1;
     }
 
-    public PlayerData3 getShooterTwo() {
-        return shooterTwo;
+    public PlayerData getShooter2() {
+        return shooter2;
     }
 
-    public void setShooterTwo(PlayerData3 shooterTwo) {
-        this.shooterTwo = shooterTwo;
+    public void setShooter2(PlayerData shooter2) {
+        this.shooter2 = shooter2;
     }
 
-    public PlayerData3 getShooterThree() {
-        return shooterThree;
+    public PlayerData getShooter3() {
+        return shooter3;
     }
 
-    public void setShooterThree(PlayerData3 shooterThree) {
-        this.shooterThree = shooterThree;
+    public void setShooter3(PlayerData shooter3) {
+        this.shooter3 = shooter3;
     }
 
-    public PlayerData3 getShooterFour() {
-        return shooterFour;
+    public PlayerData getShooter4() {
+        return shooter4;
     }
 
-    public void setShooterFour(PlayerData3 shooterFour) {
-        this.shooterFour = shooterFour;
+    public void setShooter4(PlayerData shooter4) {
+        this.shooter4 = shooter4;
     }
 
-    public PlayerData3 getShooterFive() {
-        return shooterFive;
+    public PlayerData getShooter5() {
+        return shooter5;
     }
 
-    public void setShooterFive(PlayerData3 shooterFive) {
-        this.shooterFive = shooterFive;
+    public void setShooter5(PlayerData shooter5) {
+        this.shooter5 = shooter5;
     }
 }

@@ -3,15 +3,15 @@ package com.example.michaeljeffress.project4.Data;
 /**
  * Created by michaeljeffress on 8/19/16.
  */
-public class PlayerInfo1 {
+public class PlayerInfo {
     private String shooterName;
     private long shooterID;
 
-    public PlayerInfo1() {
+    public PlayerInfo() {
         shooterID = System.currentTimeMillis();
     }
 
-    public PlayerInfo1(String shooterName) {
+    public PlayerInfo(String shooterName) {
         this.shooterName = shooterName;
     }
 

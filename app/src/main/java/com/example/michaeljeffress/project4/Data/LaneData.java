@@ -3,7 +3,7 @@ package com.example.michaeljeffress.project4.Data;
 /**
  * Created by michaeljeffress on 8/22/16.
  */
-public class LaneData2 {
+public class LaneData {
     private boolean s1;
     private boolean s2;
     private boolean s3;
@@ -11,7 +11,7 @@ public class LaneData2 {
     private boolean s5;
     private int score;
 
-    public LaneData2() {
+    public LaneData() {
         score = 0;
     }
 

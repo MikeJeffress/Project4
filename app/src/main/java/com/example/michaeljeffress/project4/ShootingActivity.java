@@ -1,9 +1,6 @@
 package com.example.michaeljeffress.project4;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -32,31 +29,11 @@ public class ShootingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shooting);
 
-        Intent recievedIntent = getIntent();
-        String squad_key = recievedIntent.getStringExtra("squad_key");
-
-        dayIndex = getIntent().getIntExtra(KEY_DAY_INDEX, 0);
-        shootIndex = getIntent().getIntExtra(KEY_SHOOT_INDEX, 0);
-        String dayIndexString = String.valueOf(dayIndex);
-        String shootIndexString = String.valueOf(shootIndex);
-
-
-        // TOOD: Pass both indeces to fragment in viewPager
-        //shared preferences
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_DAY_INDEX, dayIndexString);
-        editor.putString(KEY_SHOOT_INDEX, shootIndexString);
-        editor.commit();
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mSectionsPagerAdapter.setSquadKey(squad_key);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-//        if (squadArrayList == null) {
-//            squadArrayList = new ArrayList<String>();
-//        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -107,8 +84,6 @@ public class ShootingActivity extends AppCompatActivity {
 
         }
 
-
-
         @Override
         public int getCount() {
             return 5;
@@ -130,11 +105,5 @@ public class ShootingActivity extends AppCompatActivity {
             }
             return null;
         }
-
-        public void setSquadKey(String squadKey) {
-            this.squadKey = squadKey;
-        }
     }
-
-
 }
