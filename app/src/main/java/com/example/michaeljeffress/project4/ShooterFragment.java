@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.example.michaeljeffress.project4.Data.LaneData;
 import com.example.michaeljeffress.project4.Data.PlayerData;
-import com.example.michaeljeffress.project4.Data.PlayerInfo;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +29,6 @@ public class ShooterFragment extends Fragment {
     private String TAG = "Scoring App";
     private String squadKey;
     private LaneData laneData = new LaneData();
-    private Boolean scoreBoolean;
     private int dayIndex;
     private int shootIndex;
 
@@ -83,8 +81,10 @@ public class ShooterFragment extends Fragment {
 
         infoAdapter = new FirebaseListAdapter<PlayerData>(getActivity(), PlayerData.class, R.layout.list_squad_layout, ref) {
 
+
+
             @Override
-            protected void populateView(View v, final PlayerData model, final int position) {
+            protected void populateView(View v, PlayerData model, final int position) {
                 if (model == null || model.getShooterInfo() == null || model.getShooterInfo().getShooterName() == null){
                     v.setVisibility(View.GONE);
                     return;
@@ -104,68 +104,17 @@ public class ShooterFragment extends Fragment {
                 final CheckBox checkBoxFourth = (CheckBox) v.findViewById(R.id.checkbox_ForthTarget);
                 final CheckBox checkBoxFifth = (CheckBox) v.findViewById(R.id.checkbox_FifthTarget);
 
-                checkBoxFirst.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        PlayerInfo plaerInfo = new PlayerInfo(model.getShooterInfo().getShooterName());
-                        plaerInfo.setShooterID(model.getShooterInfo().getShooterID());
-                        PlayerData player = new PlayerData(plaerInfo);
+                CheckedListener listenerBox1 = new CheckedListener(model, position, CheckedListener.SHOT_1);
+                CheckedListener listenerBox2 = new CheckedListener(model, position, CheckedListener.SHOT_2);
+                CheckedListener listenerBox3 = new CheckedListener(model, position, CheckedListener.SHOT_3);
+                CheckedListener listenerBox4 = new CheckedListener(model, position, CheckedListener.SHOT_4);
+                CheckedListener listenerBox5 = new CheckedListener(model, position, CheckedListener.SHOT_5);
 
-                        player.getStation1().setS1(compoundButton.isChecked());
-
-                        switch (position){
-                            case 0:
-                                ref.child("shooterOne").setValue(player);
-                                break;
-                            case 1:
-                                ref.child("shooterTwo").setValue(player);
-                                break;
-                            case 2:
-                                ref.child("shooterThree").setValue(player);
-                                break;
-                            case 3:
-                                ref.child("shooterFour").setValue(player);
-                                break;
-                            case 4:
-                                ref.child("shooterFive").setValue(player);
-                                break;
-                        }
-                    }
-                });
-
-
-                checkBoxSecond.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        model.getStation1().setS2(compoundButton.isChecked());
-
-                    }
-                });
-
-                checkBoxThird.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        model.getStation1().setS3(compoundButton.isChecked());
-
-                    }
-                });
-
-                checkBoxFourth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        model.getStation1().setS1(compoundButton.isChecked());
-                    }
-                });
-
-                checkBoxFifth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        if (checkBoxFirst.isChecked()) {
-                            laneData.setS5(b);
-                        }
-                    }
-                });
-
+                checkBoxFirst.setOnCheckedChangeListener(listenerBox1);
+                checkBoxSecond.setOnCheckedChangeListener(listenerBox2);
+                checkBoxThird.setOnCheckedChangeListener(listenerBox3);
+                checkBoxFourth.setOnCheckedChangeListener(listenerBox4);
+                checkBoxFifth.setOnCheckedChangeListener(listenerBox5);
             }
         };
         squadUpdates();
@@ -202,5 +151,67 @@ public class ShooterFragment extends Fragment {
             }
         });
     }
+
+
+    private class CheckedListener implements CompoundButton.OnCheckedChangeListener {
+        public static final int SHOT_1 = 1;
+        public static final int SHOT_2 = 2;
+        public static final int SHOT_3 = 3;
+        public static final int SHOT_4 = 4;
+        public static final int SHOT_5 = 5;
+
+        private PlayerData model;
+        private int position;
+        private int shotNumber;
+
+        public CheckedListener(PlayerData model, int position, int shotNumber) {
+            this.model = model;
+            this.position = position;
+            this.shotNumber = shotNumber;
+        }
+
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            switch (shotNumber){
+                case SHOT_1:
+                    model.getStation1().setS1(compoundButton.isChecked());
+                    break;
+                case SHOT_2:
+                    model.getStation1().setS2(compoundButton.isChecked());
+                    break;
+                case SHOT_3:
+                    model.getStation1().setS3(compoundButton.isChecked());
+                    break;
+                case SHOT_4:
+                    model.getStation1().setS4(compoundButton.isChecked());
+                    break;
+                case SHOT_5:
+                    model.getStation1().setS5(compoundButton.isChecked());
+                    break;
+            }
+
+            switch (position){
+                case 0:
+                    ref.child("0").setValue(model);
+                    break;
+                case 1:
+                    ref.child("1").setValue(model);
+                    break;
+                case 2:
+                    ref.child("2").setValue(model);
+                    break;
+                case 3:
+                    ref.child("3").setValue(model);
+                    break;
+                case 4:
+                    ref.child("4").setValue(model);
+                    break;
+            }
+
+        }
+
+
+    }
+
+
 
 }
