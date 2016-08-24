@@ -31,7 +31,18 @@ public class GameDayData {
     }
 
     public void createShoot(PlayerInfo p1, PlayerInfo p2, PlayerInfo p3, PlayerInfo p4, PlayerInfo p5) {
-        Game g = new Game(p1,p2,p3,p4,p5);
+        Game g = new Game();
+        addPlayerToList(p1, g);
+        addPlayerToList(p2, g);
+        addPlayerToList(p3, g);
+        addPlayerToList(p4, g);
+        addPlayerToList(p5, g);
         shoots.add(g);
+    }
+
+    private void addPlayerToList(PlayerInfo playerInfo, Game g){
+        if(playerInfo != null){
+            g.addPlayerToArrayList(new PlayerData(playerInfo));
+        }
     }
 }

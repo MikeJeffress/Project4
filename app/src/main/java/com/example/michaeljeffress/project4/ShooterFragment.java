@@ -79,13 +79,14 @@ public class ShooterFragment extends Fragment {
         dayIndex = sharedPreferences.getInt(KEY_DAY_INDEX, 0);
         shootIndex = sharedPreferences.getInt(KEY_SHOOT_INDEX, 0);
 
-        ref = lifeRef.child("gameDayData").child(String.valueOf(dayIndex)).child("shoots").child(String.valueOf(shootIndex));
+        ref = lifeRef.child("gameDayData").child(String.valueOf(dayIndex)).child("shoots").child(String.valueOf(shootIndex)).child("shooters");
 
         infoAdapter = new FirebaseListAdapter<PlayerData>(getActivity(), PlayerData.class, R.layout.list_squad_layout, ref) {
 
             @Override
             protected void populateView(View v, final PlayerData model, final int position) {
                 if (model == null || model.getShooterInfo() == null || model.getShooterInfo().getShooterName() == null){
+                    v.setVisibility(View.GONE);
                     return;
                 }
                 TextView textView1 = (TextView) v.findViewById(R.id.shooter_placeholder);

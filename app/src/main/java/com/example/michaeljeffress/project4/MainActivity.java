@@ -15,7 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.michaeljeffress.project4.Data.Game;
 import com.example.michaeljeffress.project4.Data.GameDayData;
 import com.example.michaeljeffress.project4.Data.Life;
 import com.example.michaeljeffress.project4.Data.PlayerInfo;
@@ -42,13 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
     private String shooterName;
 
-    private PlayerInfo playerInfo;
     private PlayerInfo p1;
     private PlayerInfo p2;
     private PlayerInfo p3;
     private PlayerInfo p4;
     private PlayerInfo p5;
-    private Game game = new Game(p1, p2, p3, p4, p5);
 
     private Players players;
     private Life life;
