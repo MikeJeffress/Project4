@@ -152,7 +152,6 @@ public class ShooterFragment extends Fragment {
         });
     }
 
-
     private class CheckedListener implements CompoundButton.OnCheckedChangeListener {
         public static final int SHOT_1 = 1;
         public static final int SHOT_2 = 2;
@@ -170,22 +169,42 @@ public class ShooterFragment extends Fragment {
             this.shotNumber = shotNumber;
         }
 
+
+
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            LaneData curStation;
+            int curNumber = getArguments().getInt(ARG_STATION_NUMBER);
+
+            if (curNumber == 1){
+                curStation = model.getStation1();}
+
+            else if (curNumber == 2){
+                curStation = model.getStation2();}
+
+            else if (curNumber == 3){
+                curStation = model.getStation3();}
+
+            else if (curNumber == 4){
+                curStation = model.getStation4();}
+
+            else {
+                curStation = model.getStation5();}
+
             switch (shotNumber){
                 case SHOT_1:
-                    model.getStation1().setS1(compoundButton.isChecked());
+                    curStation.setS1(compoundButton.isChecked());
                     break;
                 case SHOT_2:
-                    model.getStation1().setS2(compoundButton.isChecked());
+                    curStation.setS2(compoundButton.isChecked());
                     break;
                 case SHOT_3:
-                    model.getStation1().setS3(compoundButton.isChecked());
+                    curStation.setS3(compoundButton.isChecked());
                     break;
                 case SHOT_4:
-                    model.getStation1().setS4(compoundButton.isChecked());
+                    curStation.setS4(compoundButton.isChecked());
                     break;
                 case SHOT_5:
-                    model.getStation1().setS5(compoundButton.isChecked());
+                    curStation.setS5(compoundButton.isChecked());
                     break;
             }
 
@@ -206,12 +225,6 @@ public class ShooterFragment extends Fragment {
                     ref.child("4").setValue(model);
                     break;
             }
-
         }
-
-
     }
-
-
-
 }

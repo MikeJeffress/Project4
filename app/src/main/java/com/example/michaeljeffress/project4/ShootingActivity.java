@@ -20,7 +20,6 @@ public class ShootingActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private String TAG = "Scoring App";
 
-
     int dayIndex;
     int shootIndex;
 
@@ -81,7 +80,6 @@ public class ShootingActivity extends AppCompatActivity {
             ShooterFragment shooterFragment = ShooterFragment.newInstance(position + 1);
             shooterFragment.setSquadKey(squadKey);
             return shooterFragment;
-
         }
 
         @Override
