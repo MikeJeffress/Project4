@@ -18,7 +18,7 @@
 
     <EditText
         android:id="@+id/main_editText"
-        android:hint="Shooter Name"
+        android:hint="New Shooter Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/main_listView"

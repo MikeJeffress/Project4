@@ -1,7 +1,9 @@
 package com.example.michaeljeffress.project4;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -13,15 +15,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.util.ArrayList;
-
 public class ShootingActivity extends AppCompatActivity {
+    public static final String KEY_DAY_INDEX = "day-index";
+    public static final String KEY_SHOOT_INDEX = "shoot-index";
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private String TAG = "Scoring App";
-    private ArrayList<String> squadArrayList;
 
+
+    int dayIndex;
+    int shootIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,20 @@ public class ShootingActivity extends AppCompatActivity {
 
         Intent recievedIntent = getIntent();
         String squad_key = recievedIntent.getStringExtra("squad_key");
+
+        dayIndex = getIntent().getIntExtra(KEY_DAY_INDEX, 0);
+        shootIndex = getIntent().getIntExtra(KEY_SHOOT_INDEX, 0);
+        String dayIndexString = String.valueOf(dayIndex);
+        String shootIndexString = String.valueOf(shootIndex);
+
+
+        // TOOD: Pass both indeces to fragment in viewPager
+        //shared preferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_DAY_INDEX, dayIndexString);
+        editor.putString(KEY_SHOOT_INDEX, shootIndexString);
+        editor.commit();
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
