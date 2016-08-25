@@ -1,188 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/relativeLayout_Shooter"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="15dp"
-    android:paddingTop="10dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/list_squad_Fill"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#3F51B5" />
-
-    <LinearLayout
-        android:id="@+id/fragment_list_name_station"
-        android:layout_below="@id/list_squad_Fill"
+        android:id="@+id/textview_main_squadlist_shooter_name"
+        android:text="shooter name"
+        android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_weight="2"/>
 
-        <TextView
-            android:id="@+id/shooter_placeholder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Shooter Name"
-            android:textSize="25dp"
-            android:layout_weight="3"/>
-
-        <TextView
-            android:id="@+id/fragment_list_position_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" - Position ?"
-            android:textSize="15dp"
-            android:layout_weight="2"/>
-
-        <TextView
-            android:id="@+id/fragment_list_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="   Score "
-            android:textSize="15dp"
-            android:layout_weight=".5"
-            />
-        <TextView
-            android:id="@+id/fragment_list_score_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="###"
-            android:textSize="15dp"
-            android:layout_weight=".5"
-            />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/checkboxholder_shooter"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/button_main_squadlist_shooter_info"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_list_name_station"
-        android:orientation="horizontal">
+        android:textSize="15dp"
+        android:text="Shooter Info"/>
 
-        <LinearLayout
-            android:id="@+id/checkboxHolder_FirstTarget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+    <Button
+        android:id="@+id/button_main_squadlist_delete_shooter"
+        android:text="Delete"
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/first_Target"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="First Target"
-                android:textSize="15dp" />
-
-            <CheckBox
-                android:id="@+id/checkbox_FirstTarget"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:scaleX="2"
-                android:scaleY="2" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/checkboxHolder_SecondTarget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/second_Target"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="Second Target"
-                android:textSize="15dp" />
-
-            <CheckBox
-                android:id="@+id/checkbox_SecondTarget"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:scaleX="2"
-                android:scaleY="2" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/checkboxHolder_ThirdTarget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/third_Target"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="Third Target"
-                android:textSize="15dp" />
-
-            <CheckBox
-                android:id="@+id/checkbox_ThirdTarget"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:scaleX="2"
-                android:scaleY="2" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/checkboxHolder_ForthTarget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/forth_Target"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="Fourth Target"
-                android:textSize="15dp" />
-
-            <CheckBox
-                android:id="@+id/checkbox_ForthTarget"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:scaleX="2"
-                android:scaleY="2" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/checkboxHolder_FifthTarget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/fifth_Target"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="Fifth Target"
-                android:textSize="15dp" />
-
-            <CheckBox
-                android:id="@+id/checkbox_FifthTarget"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:scaleX="2"
-                android:scaleY="2" />
-        </LinearLayout>
-    </LinearLayout>
-
-
-</RelativeLayout>
+</LinearLayout>

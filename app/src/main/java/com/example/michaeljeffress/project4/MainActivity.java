@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -132,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
                             break;
                     }
                     shooterPosition = shooterPosition + 1;
-
                     squadArrayList.add(playerInfo.getShooterName());
                     squadAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, squadArrayList);
                     main_Squad_ListView.setAdapter(squadAdapter);
@@ -143,6 +143,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        main_Squad_ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                squadArrayList.remove(i);
+                squadAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+        main_Squad_ListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, ShooterInfoActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
 
         playersAdapter = new FirebaseListAdapter<PlayerInfo>(MainActivity.this, PlayerInfo.class, android.R.layout.simple_expandable_list_item_1, shootersRef) {
             @Override
@@ -183,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
     }
 

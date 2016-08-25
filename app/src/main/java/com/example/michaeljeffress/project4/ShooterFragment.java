@@ -95,7 +95,7 @@ public class ShooterFragment extends Fragment {
         ref = lifeRef.child("gameDayData").child(String.valueOf(dayIndex)).child("shoots").child(String.valueOf(shootIndex)).child("shooters");
 
 
-        infoAdapter = new FirebaseListAdapter<PlayerData>(getActivity(), PlayerData.class, R.layout.list_squad_layout, ref) {
+        infoAdapter = new FirebaseListAdapter<PlayerData>(getActivity(), PlayerData.class, R.layout.list_shooting_layout, ref) {
             @Override
             protected void populateView(View v, PlayerData model, final int position) {
                 if (model == null || model.getShooterInfo() == null || model.getShooterInfo().getShooterName() == null){
