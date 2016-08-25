@@ -31,7 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/main_textViewHeadline"
         android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown"
+        android:text="[Add your shooters...]"/>
 
     <Button
         android:id="@+id/main_buttonAdd"

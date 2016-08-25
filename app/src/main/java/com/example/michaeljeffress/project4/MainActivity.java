@@ -41,11 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
     private String shooterName;
 
+
     private PlayerInfo p1;
     private PlayerInfo p2;
     private PlayerInfo p3;
     private PlayerInfo p4;
     private PlayerInfo p5;
+
 
     private Players players;
     private Life life;
@@ -101,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -137,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
                     main_Squad_ListView.setAdapter(squadAdapter);
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -150,7 +150,13 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView) v).setText(model.getShooterName());
             }
         };
-        dropdown.setAdapter(playersAdapter);
+
+        dropdown.setAdapter(
+                new NothingSelectedSpinnerAdapter(
+                        playersAdapter,
+                        R.layout.contact_spinner_row_nothing_selected,
+                        R.layout.contact_spinner_row_nothing_selected, // Optional
+                        this));
 
 
         shootButton.setOnClickListener(new View.OnClickListener() {

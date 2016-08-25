@@ -31,9 +31,11 @@ public class ShooterFragment extends Fragment {
     private LaneData laneData = new LaneData();
     private int dayIndex;
     private int shootIndex;
+    private int stationIndex;
 
     public static final String KEY_DAY_INDEX = "day-index";
     public static final String KEY_SHOOT_INDEX = "shoot-index";
+
 
     private static final String ARG_STATION_NUMBER = "station_number";
     private FirebaseListAdapter infoAdapter;
@@ -42,6 +44,15 @@ public class ShooterFragment extends Fragment {
     DatabaseReference lifeRef = firebaseDatabase.getReference("life");
 
     private DatabaseReference ref;
+    private DatabaseReference stationRef;
+
+    private CheckBox checkBoxFirst;
+    private CheckBox checkBoxSecond;
+    private CheckBox checkBoxThird;
+    private CheckBox checkBoxFourth;
+    private CheckBox checkBoxFifth;
+
+    private int curStationNumber;
 
     public ShooterFragment() {
     }
@@ -67,9 +78,13 @@ public class ShooterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_second, container, false);
+
+        curStationNumber = getArguments().getInt(ARG_STATION_NUMBER);
+
         TextView textView = (TextView) rootView.findViewById(R.id.section_label);
         textView.setText(getString(R.string.round_format, getArguments().getInt(ARG_STATION_NUMBER)));
         ListView listView = (ListView) rootView.findViewById(R.id.fragment_listView);
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -79,10 +94,8 @@ public class ShooterFragment extends Fragment {
 
         ref = lifeRef.child("gameDayData").child(String.valueOf(dayIndex)).child("shoots").child(String.valueOf(shootIndex)).child("shooters");
 
+
         infoAdapter = new FirebaseListAdapter<PlayerData>(getActivity(), PlayerData.class, R.layout.list_squad_layout, ref) {
-
-
-
             @Override
             protected void populateView(View v, PlayerData model, final int position) {
                 if (model == null || model.getShooterInfo() == null || model.getShooterInfo().getShooterName() == null){
@@ -92,17 +105,14 @@ public class ShooterFragment extends Fragment {
                 TextView textView1 = (TextView) v.findViewById(R.id.shooter_placeholder);
                 textView1.setText(model.getShooterInfo().getShooterName());
 
+                TextView textViewScore = (TextView) v.findViewById(R.id.fragment_list_score_number);
+                textViewScore.setText(model.getTotalScore() + "");
+
                 TextView positionTextView = (TextView) v.findViewById(R.id.fragment_list_position_number);
                 int positionPlus = position + 1;
                 positionTextView.setText("  -  Position " + positionPlus);
 
                 System.out.println("position " + position);
-
-                final CheckBox checkBoxFirst = (CheckBox) v.findViewById(R.id.checkbox_FirstTarget);
-                final CheckBox checkBoxSecond = (CheckBox) v.findViewById(R.id.checkbox_SecondTarget);
-                final CheckBox checkBoxThird = (CheckBox) v.findViewById(R.id.checkbox_ThirdTarget);
-                final CheckBox checkBoxFourth = (CheckBox) v.findViewById(R.id.checkbox_ForthTarget);
-                final CheckBox checkBoxFifth = (CheckBox) v.findViewById(R.id.checkbox_FifthTarget);
 
                 CheckedListener listenerBox1 = new CheckedListener(model, position, CheckedListener.SHOT_1);
                 CheckedListener listenerBox2 = new CheckedListener(model, position, CheckedListener.SHOT_2);
@@ -110,11 +120,41 @@ public class ShooterFragment extends Fragment {
                 CheckedListener listenerBox4 = new CheckedListener(model, position, CheckedListener.SHOT_4);
                 CheckedListener listenerBox5 = new CheckedListener(model, position, CheckedListener.SHOT_5);
 
-                checkBoxFirst.setOnCheckedChangeListener(listenerBox1);
-                checkBoxSecond.setOnCheckedChangeListener(listenerBox2);
-                checkBoxThird.setOnCheckedChangeListener(listenerBox3);
-                checkBoxFourth.setOnCheckedChangeListener(listenerBox4);
-                checkBoxFifth.setOnCheckedChangeListener(listenerBox5);
+                checkBoxFirst = (CheckBox) v.findViewById(R.id.checkbox_FirstTarget);
+                checkBoxSecond = (CheckBox) v.findViewById(R.id.checkbox_SecondTarget);
+                checkBoxThird = (CheckBox) v.findViewById(R.id.checkbox_ThirdTarget);
+                checkBoxFourth = (CheckBox) v.findViewById(R.id.checkbox_ForthTarget);
+                checkBoxFifth = (CheckBox) v.findViewById(R.id.checkbox_FifthTarget);
+
+                checkBoxFirst.setOnClickListener(listenerBox1);
+                checkBoxSecond.setOnClickListener(listenerBox2);
+                checkBoxThird.setOnClickListener(listenerBox3);
+                checkBoxFourth.setOnClickListener(listenerBox4);
+                checkBoxFifth.setOnClickListener(listenerBox5);
+
+                LaneData curStation;
+                if (curStationNumber == 1){
+                    curStation = model.getStation1();}
+
+                else if (curStationNumber == 2){
+                    curStation = model.getStation2();}
+
+                else if (curStationNumber == 3){
+                    curStation = model.getStation3();}
+
+                else if (curStationNumber == 4){
+                    curStation = model.getStation4();}
+
+                else {
+                    curStation = model.getStation5();}
+
+                checkBoxFirst.setChecked(curStation.isS1());
+                checkBoxSecond.setChecked(curStation.isS2());
+                checkBoxThird.setChecked(curStation.isS3());
+                checkBoxFourth.setChecked(curStation.isS4());
+                checkBoxFifth.setChecked(curStation.isS5());
+
+
             }
         };
         squadUpdates();
@@ -152,7 +192,7 @@ public class ShooterFragment extends Fragment {
         });
     }
 
-    private class CheckedListener implements CompoundButton.OnCheckedChangeListener {
+    private class CheckedListener implements View.OnClickListener {
         public static final int SHOT_1 = 1;
         public static final int SHOT_2 = 2;
         public static final int SHOT_3 = 3;
@@ -169,26 +209,38 @@ public class ShooterFragment extends Fragment {
             this.shotNumber = shotNumber;
         }
 
+        @Override
+        public void onClick(View view) {
+            CompoundButton compoundButton = (CompoundButton) view;
 
-
-        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
             LaneData curStation;
-            int curNumber = getArguments().getInt(ARG_STATION_NUMBER);
 
-            if (curNumber == 1){
+
+            if (curStationNumber == 1){
                 curStation = model.getStation1();}
 
-            else if (curNumber == 2){
+            else if (curStationNumber == 2){
                 curStation = model.getStation2();}
 
-            else if (curNumber == 3){
+            else if (curStationNumber == 3){
                 curStation = model.getStation3();}
 
-            else if (curNumber == 4){
+            else if (curStationNumber == 4){
                 curStation = model.getStation4();}
 
             else {
                 curStation = model.getStation5();}
+
+
+            if (compoundButton.isChecked()){
+                curStation.setScore(curStation.getScore() + 1);
+                model.setTotalScore(model.getTotalScore() + 1);
+            }
+
+            else {
+                curStation.setScore(curStation.getScore() - 1);
+                model.setTotalScore(model.getTotalScore() - 1);
+            }
 
             switch (shotNumber){
                 case SHOT_1:
