@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     private PlayerInfo p4;
     private PlayerInfo p5;
 
-
     private Players players;
     private Life life;
 
@@ -87,20 +86,42 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shooterName = editText.getText().toString();
                 if (shooterPosition > 4) {
-                    Toast.makeText(MainActivity.this, "Only Five Shooters Per Squad", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Too many shooters added.", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (!shooterName.isEmpty()) {
-                    squadArrayList.add(shooterName);
-                    squadAdapter.notifyDataSetChanged();
-                    players.addPlayer(new PlayerInfo(shooterName));
-                    playerRef.setValue(players);
-                    editText.setText("");
-                } else {
+                shooterName = editText.getText().toString();
+                if (shooterName.isEmpty()){
                     Toast.makeText(MainActivity.this, "Please enter shooter name.", Toast.LENGTH_LONG).show();
+                    return;
                 }
+
+                PlayerInfo playerInfo = new PlayerInfo(shooterName);
+                players.addPlayer(playerInfo);
+                playerRef.setValue(players);
+                editText.setText("");
+
+                switch (shooterPosition) {
+                    case 0:
+                        p1 = playerInfo;
+                        break;
+                    case 1:
+                        p2 = playerInfo;
+                        break;
+                    case 2:
+                        p3 = playerInfo;
+                        break;
+                    case 3:
+                        p4 = playerInfo;
+                        break;
+                    case 4:
+                        p5 = playerInfo;
+                        break;
+                }
+                shooterPosition = shooterPosition + 1;
+                squadArrayList.add(playerInfo.getShooterName());
+                squadAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, squadArrayList);
+                main_Squad_ListView.setAdapter(squadAdapter);
             }
         });
 
