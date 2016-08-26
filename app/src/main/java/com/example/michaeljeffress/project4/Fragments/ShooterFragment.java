@@ -1,4 +1,4 @@
-package com.example.michaeljeffress.project4;
+package com.example.michaeljeffress.project4.Fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.michaeljeffress.project4.Data.LaneData;
 import com.example.michaeljeffress.project4.Data.PlayerData;
+import com.example.michaeljeffress.project4.R;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;

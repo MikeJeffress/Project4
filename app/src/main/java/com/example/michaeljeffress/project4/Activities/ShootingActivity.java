@@ -1,4 +1,4 @@
-package com.example.michaeljeffress.project4;
+package com.example.michaeljeffress.project4.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.example.michaeljeffress.project4.Fragments.ShooterFragment;
+import com.example.michaeljeffress.project4.R;
 
 public class ShootingActivity extends AppCompatActivity {
     public static final String KEY_DAY_INDEX = "day-index";

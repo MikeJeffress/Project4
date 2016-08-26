@@ -10,15 +10,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShootingActivity" />
-        <activity android:name=".ShooterInfoActivity"></activity>
+        <activity android:name=".Activities.ShootingActivity" />
+        <activity android:name=".Activities.ShooterInfoActivity"></activity>
     </application>
 
 </manifest>

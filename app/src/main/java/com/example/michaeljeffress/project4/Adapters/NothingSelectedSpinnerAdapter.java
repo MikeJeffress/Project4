@@ -1,4 +1,4 @@
-package com.example.michaeljeffress.project4;
+package com.example.michaeljeffress.project4.Adapters;
 
 /**
  * Created by michaeljeffress on 8/25/16.

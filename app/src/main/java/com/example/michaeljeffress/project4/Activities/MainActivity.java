@@ -1,4 +1,4 @@
-package com.example.michaeljeffress.project4;
+package com.example.michaeljeffress.project4.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -15,10 +14,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.michaeljeffress.project4.Adapters.CustomSquadListAdapter;
+import com.example.michaeljeffress.project4.Adapters.NothingSelectedSpinnerAdapter;
 import com.example.michaeljeffress.project4.Data.GameDayData;
 import com.example.michaeljeffress.project4.Data.Life;
 import com.example.michaeljeffress.project4.Data.PlayerInfo;
 import com.example.michaeljeffress.project4.Data.Players;
+import com.example.michaeljeffress.project4.R;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CustomSquadListAdapter.InfoButtonClickListener, CustomSquadListAdapter.DeleteButtonClickListener {
     private String TAG = "Scoring App";
 
     private EditText editText;
@@ -37,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
     private Button shootButton;
     private ListView main_Squad_ListView;
     private Spinner dropdown;
-    private ArrayList<Object> squadArrayList = new ArrayList();
+    private ArrayList<String> squadArrayList = new ArrayList();
 
     private String shooterName;
 
-
+    /* Player Info initialization */
     private PlayerInfo p1;
     private PlayerInfo p2;
     private PlayerInfo p3;
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference shootersRef;
     private DatabaseReference lifeRef, playerRef;
     private FirebaseListAdapter<PlayerInfo> playersAdapter;
-    private ArrayAdapter squadAdapter;
+    private CustomSquadListAdapter customSquadListAdapter;
     private boolean selected = false;
 
     private int shooterPosition = 0;
@@ -65,23 +67,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        editText = (EditText) findViewById(R.id.main_editText);
-        addButton = (Button) findViewById(R.id.main_buttonAdd);
-        shootButton = (Button) findViewById(R.id.main_shootButton);
-        dropdown = (Spinner) findViewById(R.id.main_spinner);
-        main_Squad_ListView = (ListView) findViewById(R.id.main_listView);
-
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        shootersRef = firebaseDatabase.getReference("players/allPlayers");
-        playerRef = firebaseDatabase.getReference("players");
-        lifeRef = firebaseDatabase.getReference("life");
-
+        setUpViews();
+        setUpFirebase();
         getPlayersFromFireBase();
         getShootsFromFirebase();
 
-        squadAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, squadArrayList);
-        main_Squad_ListView.setAdapter(squadAdapter);
+        customSquadListAdapter = new CustomSquadListAdapter(this, R.layout.list_squad_layout, squadArrayList);
+        customSquadListAdapter.setInfoButtonClickListener(this);
+        customSquadListAdapter.setDeleteButtonListener(this);
+        main_Squad_ListView.setAdapter(customSquadListAdapter);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 shooterName = editText.getText().toString();
-                if (shooterName.isEmpty()){
+                if (shooterName.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please enter shooter name.", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -120,8 +114,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 shooterPosition = shooterPosition + 1;
                 squadArrayList.add(playerInfo.getShooterName());
-                squadAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, squadArrayList);
-                main_Squad_ListView.setAdapter(squadAdapter);
+                customSquadListAdapter = new CustomSquadListAdapter(MainActivity.this, R.layout.list_squad_layout, squadArrayList);
+                customSquadListAdapter.setInfoButtonClickListener(MainActivity.this);
+                customSquadListAdapter.setDeleteButtonListener(MainActivity.this);
+                main_Squad_ListView.setAdapter(customSquadListAdapter);
             }
         });
 
@@ -155,30 +151,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                     shooterPosition = shooterPosition + 1;
                     squadArrayList.add(playerInfo.getShooterName());
-                    squadAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, squadArrayList);
-                    main_Squad_ListView.setAdapter(squadAdapter);
+                    customSquadListAdapter = new CustomSquadListAdapter(MainActivity.this, R.layout.list_squad_layout, squadArrayList);
+                    customSquadListAdapter.setInfoButtonClickListener(MainActivity.this);
+                    customSquadListAdapter.setDeleteButtonListener(MainActivity.this);
+                    main_Squad_ListView.setAdapter(customSquadListAdapter);
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-        main_Squad_ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                squadArrayList.remove(i);
-                squadAdapter.notifyDataSetChanged();
-
-            }
-        });
-
-        main_Squad_ListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MainActivity.this, ShooterInfoActivity.class);
-                startActivity(intent);
-                return false;
             }
         });
 
@@ -193,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 new NothingSelectedSpinnerAdapter(
                         playersAdapter,
                         R.layout.contact_spinner_row_nothing_selected,
-                        R.layout.contact_spinner_row_nothing_selected, // Optional
+                        R.layout.contact_spinner_row_nothing_selected,
                         this));
 
 
@@ -221,8 +202,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    @Override
+    public void infoButtonClickListener() {
+        Intent intent = new Intent(MainActivity.this, ShooterInfoActivity.class);
+        startActivity(intent);
+    }
 
+    @Override
+    public void deleteButtonClickListener() {
+        shooterPosition = shooterPosition - 1;
     }
 
     @Override
@@ -268,6 +258,24 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
+
+    public void setUpViews() {
+        editText = (EditText) findViewById(R.id.main_editText);
+        addButton = (Button) findViewById(R.id.main_buttonAdd);
+        shootButton = (Button) findViewById(R.id.main_shootButton);
+        dropdown = (Spinner) findViewById(R.id.main_spinner);
+        main_Squad_ListView = (ListView) findViewById(R.id.main_listView);
+    }
+
+    public void setUpFirebase() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        shootersRef = firebaseDatabase.getReference("players/allPlayers");
+        playerRef = firebaseDatabase.getReference("players");
+        lifeRef = firebaseDatabase.getReference("life");
+    }
+
 
 }
